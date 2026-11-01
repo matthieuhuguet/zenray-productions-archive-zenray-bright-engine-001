@@ -1,0 +1,328 @@
+{
+  "projectId": "zenray-bright",
+  "sourceRoot": "/Users/zenray/Create/Build/ZenRayBright",
+  "application": "/Applications/ZenRay Bright.app",
+  "configuration": "/Users/zenray/Library/Application Support/ZenRayBright/Config.json",
+  "loginAgent": "/Users/zenray/Library/LaunchAgents/studio.zenray.bright.plist",
+  "cli": "/Users/zenray/.local/bin/zenray-bright",
+  "articleFileId": "engine:Articles/index.html",
+  "cloudFolder": "pages/ZenRayAssets/zenray-bright/sources/tmp/engine",
+  "cloudStatus": "Consulter les reçus Assets ; ce document ne certifie pas un envoi.",
+  "files": [
+    {
+      "fileId": "engine:AGENTS.md",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/AGENTS.md",
+      "relativePath": "AGENTS.md",
+      "role": "Code, paramètres et preuves",
+      "size": 950,
+      "sha256": "91742704454291c030d5b7d14769b480f31252ed08e7d9d0db358f56741935f4",
+      "modifiedAt": "2026-11-01T19:45:23.825307+01:00"
+    },
+    {
+      "fileId": "engine:CLAUDE.md",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/CLAUDE.md",
+      "relativePath": "CLAUDE.md",
+      "role": "Code, paramètres et preuves",
+      "size": 950,
+      "sha256": "91742704454291c030d5b7d14769b480f31252ed08e7d9d0db358f56741935f4",
+      "modifiedAt": "2026-11-01T19:45:23.825021+01:00"
+    },
+    {
+      "fileId": "engine:ProjectInfo.json",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/ProjectInfo.json",
+      "relativePath": "ProjectInfo.json",
+      "role": "Code, paramètres et preuves",
+      "size": 755,
+      "sha256": "54279356934e5cc4ab0b502ae143800a8e932c974fb61c558ef90f46c15fc90a",
+      "modifiedAt": "2026-11-01T19:57:22.617741+01:00"
+    },
+    {
+      "fileId": "engine:Proofs/Article-1440.png",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Proofs/Article-1440.png",
+      "relativePath": "Proofs/Article-1440.png",
+      "role": "Code, paramètres et preuves",
+      "size": 115684,
+      "sha256": "c1b64ab79218be234d0b31c92063fb5658bf7ff2b1ddf85c36020aa9b4f2ecd1",
+      "modifiedAt": "2026-11-01T19:51:35.194320+01:00"
+    },
+    {
+      "fileId": "engine:Proofs/Article-390.png",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Proofs/Article-390.png",
+      "relativePath": "Proofs/Article-390.png",
+      "role": "Code, paramètres et preuves",
+      "size": 86826,
+      "sha256": "65d8e3bd3568e236b5b55248bf5266b57ab20e91bb6cd316a39d87b99cfac51f",
+      "modifiedAt": "2026-11-01T19:51:35.281667+01:00"
+    },
+    {
+      "fileId": "engine:Proofs/Panel.png",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Proofs/Panel.png",
+      "relativePath": "Proofs/Panel.png",
+      "role": "Code, paramètres et preuves",
+      "size": 25294,
+      "sha256": "261aca6aef490df54ad8114e491c80e1a1122cacbdca5060445eafb19ddb8272",
+      "modifiedAt": "2026-11-01T19:57:22.716070+01:00"
+    },
+    {
+      "fileId": "engine:Proofs/Readback.txt",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Proofs/Readback.txt",
+      "relativePath": "Proofs/Readback.txt",
+      "role": "Code, paramètres et preuves",
+      "size": 3,
+      "sha256": "673650f936cb3b0a2f93ce09d81be10748b1b203c19e8176b4eefc1964a0cf3a",
+      "modifiedAt": "2026-11-01T19:28:31.884176+01:00"
+    },
+    {
+      "fileId": "engine:README.md",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/README.md",
+      "relativePath": "README.md",
+      "role": "Code, paramètres et preuves",
+      "size": 1659,
+      "sha256": "fdd81f2f2b70a507960132df95ff7d8574ceb0026f7154e7293a74e59af97b98",
+      "modifiedAt": "2026-11-01T19:45:50.428021+01:00"
+    },
+    {
+      "fileId": "engine:Scripts/Build.sh",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Scripts/Build.sh",
+      "relativePath": "Scripts/Build.sh",
+      "role": "Code, paramètres et preuves",
+      "size": 1189,
+      "sha256": "f227b7da3741aa9e500513c408a0f407eaf660439ec3b76675d1ced4a2ce02ff",
+      "modifiedAt": "2026-11-01T19:23:43.789667+01:00"
+    },
+    {
+      "fileId": "engine:Scripts/BuildSummary.py",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Scripts/BuildSummary.py",
+      "relativePath": "Scripts/BuildSummary.py",
+      "role": "Code, paramètres et preuves",
+      "size": 9289,
+      "sha256": "472c8f72566835f14e2f93e544dc544dce63d1cde26010e84790533fb8206d9c",
+      "modifiedAt": "2026-11-01T19:45:50.468451+01:00"
+    },
+    {
+      "fileId": "engine:Scripts/Install.py",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Scripts/Install.py",
+      "relativePath": "Scripts/Install.py",
+      "role": "Code, paramètres et preuves",
+      "size": 1246,
+      "sha256": "43a17d7c10bb0d8ca00cbd5e0c48bfc92628bf8368e9241268f7e6113aeafc93",
+      "modifiedAt": "2026-11-01T19:45:50.427763+01:00"
+    },
+    {
+      "fileId": "engine:Sources/ZenRayBright.swift",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/ZenRayBright.swift",
+      "relativePath": "Sources/ZenRayBright.swift",
+      "role": "Code, paramètres et preuves",
+      "size": 10251,
+      "sha256": "cd2ddffd59850489198ce56d7a6541fc0b6ec8491da389765b13750c2fb92cd0",
+      "modifiedAt": "2026-11-01T19:30:36.514668+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/.gitignore",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/.gitignore",
+      "relativePath": "Sources/m1ddc/.gitignore",
+      "role": "Moteur DDC et licence",
+      "size": 166,
+      "sha256": "f08730f8752fbada3e256f92962d15ae171263367739c4847c240e15d1023564",
+      "modifiedAt": "2026-11-01T19:22:31.610571+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/.objects/i2c.d",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/.objects/i2c.d",
+      "relativePath": "Sources/m1ddc/.objects/i2c.d",
+      "role": "Moteur DDC et licence",
+      "size": 158,
+      "sha256": "96e18ca76d5591029ce6e45d650234dfe39f5fd543fb7b0d4834c38d845a3b4d",
+      "modifiedAt": "2026-11-01T19:22:34.224055+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/.objects/i2c.o",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/.objects/i2c.o",
+      "relativePath": "Sources/m1ddc/.objects/i2c.o",
+      "role": "Moteur DDC et licence",
+      "size": 3680,
+      "sha256": "85bf32eb775c0978bf65dff6746d1b84844533b6b3f262146af4e3e452297c14",
+      "modifiedAt": "2026-11-01T19:22:34.205176+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/.objects/ioregistry.d",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/.objects/ioregistry.d",
+      "relativePath": "Sources/m1ddc/.objects/ioregistry.d",
+      "role": "Moteur DDC et licence",
+      "size": 158,
+      "sha256": "a23e081b564eb167033ce864c4bee8097fe064e1a7469f292a38ed87ad5e0060",
+      "modifiedAt": "2026-11-01T19:22:34.396956+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/.objects/ioregistry.o",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/.objects/ioregistry.o",
+      "relativePath": "Sources/m1ddc/.objects/ioregistry.o",
+      "role": "Moteur DDC et licence",
+      "size": 11424,
+      "sha256": "a3b1f840131ed68227d97dbff848a79402b9074394dc8a70228aac6a44475700",
+      "modifiedAt": "2026-11-01T19:22:34.373889+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/.objects/m1ddc.d",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/.objects/m1ddc.d",
+      "relativePath": "Sources/m1ddc/.objects/m1ddc.d",
+      "role": "Moteur DDC et licence",
+      "size": 162,
+      "sha256": "639425ed64804cb8f830e56f26afc6405976c8a8a2c5ba905a39e8e8b34cfe94",
+      "modifiedAt": "2026-11-01T19:22:34.432292+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/.objects/m1ddc.o",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/.objects/m1ddc.o",
+      "relativePath": "Sources/m1ddc/.objects/m1ddc.o",
+      "role": "Moteur DDC et licence",
+      "size": 19504,
+      "sha256": "3b53c9a69d9f08f91f5a30b16358e846e8cdf6e6beac1c1645f0131f72778eec",
+      "modifiedAt": "2026-11-01T19:22:34.432182+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/LICENSE",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/LICENSE",
+      "relativePath": "Sources/m1ddc/LICENSE",
+      "role": "Moteur DDC et licence",
+      "size": 1066,
+      "sha256": "b01d3d1de4baa142bb3746588e70814d04eae071d104f8aff580f88e30bb4547",
+      "modifiedAt": "2026-11-01T19:22:31.610640+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/Makefile",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/Makefile",
+      "relativePath": "Sources/m1ddc/Makefile",
+      "role": "Moteur DDC et licence",
+      "size": 3260,
+      "sha256": "336e0bd09cd6328fd9dfae08a018a9b349cfe25000c6a95f135da92df7a5c01d",
+      "modifiedAt": "2026-11-01T19:22:31.610697+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/README.md",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/README.md",
+      "relativePath": "Sources/m1ddc/README.md",
+      "role": "Moteur DDC et licence",
+      "size": 7914,
+      "sha256": "d24debe644f97bfc92d309a2105e0248d2119359bb31380d7c5b1e7096f1a730",
+      "modifiedAt": "2026-11-01T19:22:31.610788+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/headers/i2c.h",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/headers/i2c.h",
+      "relativePath": "Sources/m1ddc/headers/i2c.h",
+      "role": "Moteur DDC et licence",
+      "size": 1906,
+      "sha256": "7e0ae57dccbe53d84ddbc4c10f3efc036a06269583b788a854a89f8de81d326d",
+      "modifiedAt": "2026-11-01T19:22:31.610867+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/headers/ioregistry.h",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/headers/ioregistry.h",
+      "relativePath": "Sources/m1ddc/headers/ioregistry.h",
+      "role": "Moteur DDC et licence",
+      "size": 1476,
+      "sha256": "10a4833144b6168afa978f8ac63da30fe6dc67df24d881f22cb58f8a6e2b5ad2",
+      "modifiedAt": "2026-11-01T19:22:31.610920+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/headers/utils.h",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/headers/utils.h",
+      "relativePath": "Sources/m1ddc/headers/utils.h",
+      "role": "Moteur DDC et licence",
+      "size": 91,
+      "sha256": "fcd87a2495f5bb7ca1d86253e3bab7ee1758f939c079106bf81c8bcaf6599b64",
+      "modifiedAt": "2026-11-01T19:22:31.610969+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/m1ddc",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/m1ddc",
+      "relativePath": "Sources/m1ddc/m1ddc",
+      "role": "Moteur DDC et licence",
+      "size": 71096,
+      "sha256": "0afffab13a5fd248a8a4d8f15dfadddef7d1c461bcea4334013cfac907b1b639",
+      "modifiedAt": "2026-11-01T19:22:34.558371+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/sources/i2c.m",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/sources/i2c.m",
+      "relativePath": "Sources/m1ddc/sources/i2c.m",
+      "role": "Moteur DDC et licence",
+      "size": 2972,
+      "sha256": "0f21bfb03a9f851f4dec72d6df1eae1809fe8ec49b0b74d3f4b9be601c2902d6",
+      "modifiedAt": "2026-11-01T19:22:31.611051+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/sources/ioregistry.m",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/sources/ioregistry.m",
+      "relativePath": "Sources/m1ddc/sources/ioregistry.m",
+      "role": "Moteur DDC et licence",
+      "size": 10421,
+      "sha256": "39bbc789169aa1d7132bfc3da6005f8e5aeb41052195992181e7c61addcfe0a8",
+      "modifiedAt": "2026-11-01T19:22:31.611140+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc/sources/m1ddc.m",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc/sources/m1ddc.m",
+      "relativePath": "Sources/m1ddc/sources/m1ddc.m",
+      "role": "Moteur DDC et licence",
+      "size": 14754,
+      "sha256": "37794b3c9d0831796496a11500f33b12c3c1a05f781d94c90c9762727b50f678",
+      "modifiedAt": "2026-11-01T19:22:31.611272+01:00"
+    },
+    {
+      "fileId": "engine:Sources/m1ddc-README.md",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Sources/m1ddc-README.md",
+      "relativePath": "Sources/m1ddc-README.md",
+      "role": "Code, paramètres et preuves",
+      "size": 7914,
+      "sha256": "d24debe644f97bfc92d309a2105e0248d2119359bb31380d7c5b1e7096f1a730",
+      "modifiedAt": "2026-11-01T19:22:18.418331+01:00"
+    },
+    {
+      "fileId": "engine:ZenRay Bright.app/Contents/Info.plist",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/ZenRay Bright.app/Contents/Info.plist",
+      "relativePath": "ZenRay Bright.app/Contents/Info.plist",
+      "role": "Application prête à lancer",
+      "size": 542,
+      "sha256": "dd58e83f7b71517276bcd9960b0b5acc74841353f73a7d67dda654f6994790eb",
+      "modifiedAt": "2026-11-01T19:57:04.451789+01:00"
+    },
+    {
+      "fileId": "engine:ZenRay Bright.app/Contents/MacOS/ZenRayBright",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/ZenRay Bright.app/Contents/MacOS/ZenRayBright",
+      "relativePath": "ZenRay Bright.app/Contents/MacOS/ZenRayBright",
+      "role": "Application prête à lancer",
+      "size": 162368,
+      "sha256": "fc740fa60d63649a719a22602fcc46a5357b8a6b3e0ab43d5923e1f246507bd5",
+      "modifiedAt": "2026-11-01T19:57:04.481484+01:00"
+    },
+    {
+      "fileId": "engine:ZenRay Bright.app/Contents/Resources/m1ddc",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/ZenRay Bright.app/Contents/Resources/m1ddc",
+      "relativePath": "ZenRay Bright.app/Contents/Resources/m1ddc",
+      "role": "Application prête à lancer",
+      "size": 71096,
+      "sha256": "0afffab13a5fd248a8a4d8f15dfadddef7d1c461bcea4334013cfac907b1b639",
+      "modifiedAt": "2026-11-01T19:57:01.544191+01:00"
+    },
+    {
+      "fileId": "engine:ZenRay Bright.app/Contents/Resources/m1ddc-LICENSE",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/ZenRay Bright.app/Contents/Resources/m1ddc-LICENSE",
+      "relativePath": "ZenRay Bright.app/Contents/Resources/m1ddc-LICENSE",
+      "role": "Application prête à lancer",
+      "size": 1066,
+      "sha256": "b01d3d1de4baa142bb3746588e70814d04eae071d104f8aff580f88e30bb4547",
+      "modifiedAt": "2026-11-01T19:57:01.546937+01:00"
+    },
+    {
+      "fileId": "engine:ZenRay Bright.app/Contents/_CodeSignature/CodeResources",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/ZenRay Bright.app/Contents/_CodeSignature/CodeResources",
+      "relativePath": "ZenRay Bright.app/Contents/_CodeSignature/CodeResources",
+      "role": "Application prête à lancer",
+      "size": 2664,
+      "sha256": "c29ae3ca9d2ff95ee82becc417b6bceb6329b336cd81999f17ef68d98d8df584",
+      "modifiedAt": "2026-11-01T19:57:04.475775+01:00"
+    }
+  ]
+}

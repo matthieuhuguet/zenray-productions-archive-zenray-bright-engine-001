@@ -1,0 +1,195 @@
+// 1 November 2026: event-driven hardware brightness, bounded writes, verified save state.
+import AppKit
+
+struct Settings: Codable {
+    var displayUUID = "E19E6079-379F-4495-95AB-37DDBDF396B9"
+    var displayName = "AW3225QF"
+    var debounceMilliseconds = 150
+    static let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support/ZenRayBright/Config.json")
+    static func load() -> Settings {
+        if let data = try? Data(contentsOf: url), let value = try? JSONDecoder().decode(Settings.self, from: data) { return value }
+        let value = Settings()
+        try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        try? encoder.encode(value).write(to: url, options: .atomic)
+        return value
+    }
+}
+let settings = Settings.load()
+let helper = Bundle.main.resourceURL!.appendingPathComponent("m1ddc")
+func ddc(_ arguments: [String]) throws -> String {
+    let process = Process(); let output = Pipe()
+    process.executableURL = helper
+    process.arguments = ["display", settings.displayUUID] + arguments
+    process.standardOutput = output; process.standardError = output
+    try process.run()
+    let deadline = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
+    deadline.schedule(deadline: .now() + 3)
+    deadline.setEventHandler { if process.isRunning { process.terminate() } }
+    deadline.resume()
+    defer { deadline.cancel() }
+    let data = output.fileHandleForReading.readDataToEndOfFile()
+    process.waitUntilExit()
+    let text = String(decoding: data, as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
+    guard process.terminationStatus == 0 else { throw NSError(domain: "DDC", code: Int(process.terminationStatus), userInfo: [NSLocalizedDescriptionKey: text.isEmpty ? "Commande DDC interrompue ou délai dépassé." : text]) }
+    return text
+}
+func brightness() throws -> Int {
+    guard let value = Int(try ddc(["get", "luminance"])), (0...100).contains(value) else {
+        throw NSError(domain: "DDC", code: 1, userInfo: [NSLocalizedDescriptionKey: "Le moniteur ne répond pas. Vérifier sa connexion et DDC/CI."])
+    }
+    return value
+}
+func setBrightness(_ value: Int) throws -> Int {
+    _ = try ddc(["set", "luminance", String(value)])
+    let actual = try brightness()
+    guard actual == value else {
+        throw NSError(domain: "DDC", code: 2, userInfo: [NSLocalizedDescriptionKey: "Le moniteur renvoie \(actual) % au lieu de \(value) %. Réglage non confirmé."])
+    }
+    return actual
+}
+let arguments = Array(CommandLine.arguments.dropFirst())
+if arguments.first == "--get" || arguments.first == "--set" || arguments.first == "--step" {
+    do {
+        if arguments.first == "--get" { print(try brightness()) }
+        else {
+            guard arguments.count == 2, let number = Int(arguments[1]) else { exit(2) }
+            let requested = arguments[0] == "--step" ? try brightness() + number : number
+            guard (0...100).contains(requested) else { fputs("Brightness must be between 0 and 100\n", stderr); exit(2) }
+            print(try setBrightness(requested))
+        }
+        exit(0)
+    } catch { fputs("\(error.localizedDescription)\n", stderr); exit(1) }
+}
+
+final class PanelView: NSView {
+    override func draw(_ dirtyRect: NSRect) {
+        NSColor.windowBackgroundColor.setFill(); dirtyRect.fill()
+    }
+}
+
+final class BrightPanel: NSViewController {
+    let valueLabel = NSTextField(labelWithString: "… %")
+    let stateLabel = NSTextField(labelWithString: "Lecture du moniteur…")
+    let slider = NSSlider(value: 40, minValue: 0, maxValue: 100, target: nil, action: nil)
+    let spinner = NSProgressIndicator()
+    private let queue = DispatchQueue(label: "studio.zenray.bright.ddc", qos: .userInitiated)
+    private var pending: DispatchWorkItem?
+    private var generation = 0
+    private var inFlight = false
+    private var desired: (generation: Int, value: Int)?
+
+    override func loadView() {
+        view = PanelView(frame: NSRect(x: 0, y: 0, width: 300, height: 180))
+        let title = NSTextField(labelWithString: "ZenRay Bright")
+        title.font = NSFont(name: "GTUltra-Standard-Regular", size: 19) ?? .systemFont(ofSize: 19)
+        title.frame = NSRect(x: 20, y: 139, width: 200, height: 26)
+        let monitor = NSTextField(labelWithString: settings.displayName)
+        monitor.font = .systemFont(ofSize: 12); monitor.textColor = .secondaryLabelColor
+        monitor.frame = NSRect(x: 20, y: 116, width: 200, height: 20)
+        valueLabel.font = .monospacedDigitSystemFont(ofSize: 18, weight: .regular)
+        valueLabel.alignment = .right; valueLabel.frame = NSRect(x: 205, y: 114, width: 75, height: 25)
+        slider.frame = NSRect(x: 18, y: 79, width: 264, height: 24)
+        slider.target = self; slider.action = #selector(changed); slider.isContinuous = true
+        stateLabel.font = .systemFont(ofSize: 11); stateLabel.maximumNumberOfLines = 2
+        stateLabel.frame = NSRect(x: 20, y: 39, width: 242, height: 32)
+        spinner.style = .spinning; spinner.controlSize = .small
+        spinner.frame = NSRect(x: 265, y: 49, width: 15, height: 15); spinner.isDisplayedWhenStopped = false
+        let refresh = NSButton(title: "Relire", target: self, action: #selector(refreshClicked))
+        refresh.bezelStyle = .inline; refresh.frame = NSRect(x: 17, y: 10, width: 70, height: 23)
+        let quit = NSButton(title: "Quitter", target: NSApp, action: #selector(NSApplication.terminate(_:)))
+        quit.bezelStyle = .inline; quit.frame = NSRect(x: 215, y: 10, width: 70, height: 23)
+        [title, monitor, valueLabel, slider, stateLabel, spinner, refresh, quit].forEach(view.addSubview)
+    }
+
+    @objc func refreshClicked() { refresh() }
+    func refresh() {
+        guard !inFlight, desired == nil else { return }
+        generation += 1; let token = generation
+        spinner.startAnimation(nil)
+        queue.async { [weak self] in
+            let result = Result { try brightness() }
+            DispatchQueue.main.async {
+                guard let self = self, token == self.generation else { return }
+                self.spinner.stopAnimation(nil)
+                switch result {
+                case .success(let actual):
+                    self.slider.integerValue = actual; self.valueLabel.stringValue = "\(actual) %"
+                    self.stateLabel.stringValue = "Luminosité réelle du moniteur"
+                    self.stateLabel.textColor = .secondaryLabelColor
+                case .failure(let error): self.showError(error)
+                }
+            }
+        }
+    }
+    @objc func changed() {
+        generation += 1
+        valueLabel.stringValue = "\(slider.integerValue) %"
+        stateLabel.stringValue = "Réglage en cours…"; stateLabel.textColor = .secondaryLabelColor
+        spinner.startAnimation(nil)
+        desired = (generation, slider.integerValue)
+        pending?.cancel()
+        let work = DispatchWorkItem { [weak self] in self?.flush() }
+        pending = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(max(0, settings.debounceMilliseconds)), execute: work)
+    }
+    private func flush() {
+        guard !inFlight, let next = desired else { return }
+        desired = nil; inFlight = true
+        queue.async { [weak self] in
+            let result = Result { try setBrightness(next.value) }
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.inFlight = false
+                if next.generation == self.generation {
+                    self.spinner.stopAnimation(nil)
+                    switch result {
+                    case .success(let actual):
+                        self.valueLabel.stringValue = "\(actual) %"
+                        self.stateLabel.stringValue = "\(actual) % confirmé par le moniteur"
+                        self.stateLabel.textColor = .secondaryLabelColor
+                    case .failure(let error): self.showError(error)
+                    }
+                }
+                self.flush()
+            }
+        }
+    }
+    private func showError(_ error: Error) {
+        stateLabel.stringValue = "Non enregistré : \(error.localizedDescription)"
+        stateLabel.textColor = .systemRed
+    }
+}
+
+final class BrightApp: NSObject, NSApplicationDelegate {
+    private var item: NSStatusItem!
+    private let popover = NSPopover()
+    private let panel = BrightPanel()
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        NSApp.setActivationPolicy(.accessory)
+        item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        item.button?.image = NSImage(systemSymbolName: "sun.max", accessibilityDescription: "ZenRay Bright : luminosité AW3225QF")
+        item.button?.target = self; item.button?.action = #selector(toggle)
+        popover.contentViewController = panel; popover.behavior = .transient
+        NotificationCenter.default.addObserver(self, selector: #selector(displaysChanged), name: NSApplication.didChangeScreenParametersNotification, object: nil)
+    }
+    @objc func displaysChanged() { panel.refresh() }
+    @objc func toggle() {
+        guard let button = item.button else { return }
+        if popover.isShown { popover.performClose(nil) }
+        else { popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY); panel.refresh() }
+    }
+}
+let application = NSApplication.shared
+if arguments.first == "--preview", arguments.count == 2 {
+    let panel = BrightPanel(); _ = panel.view
+    panel.slider.integerValue = 40; panel.valueLabel.stringValue = "40 %"
+    panel.stateLabel.stringValue = "Luminosité réelle du moniteur"
+    panel.view.appearance = NSAppearance(named: .aqua)
+    let image = panel.view.bitmapImageRepForCachingDisplay(in: panel.view.bounds)!
+    panel.view.cacheDisplay(in: panel.view.bounds, to: image)
+    try image.representation(using: .png, properties: [:])!.write(to: URL(fileURLWithPath: arguments[1]))
+    exit(0)
+}
+let delegate = BrightApp(); application.delegate = delegate
+application.run()

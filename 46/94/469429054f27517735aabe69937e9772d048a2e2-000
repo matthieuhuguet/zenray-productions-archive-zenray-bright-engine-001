@@ -1,0 +1,18 @@
+#!/bin/bash
+# 1 November 2026: self-contained menu-bar app with the upstream MIT DDC helper.
+set -euo pipefail
+project_dir="$(cd "$(dirname "$0")/.." && pwd)"
+app_dir="$project_dir/ZenRay Bright.app"
+mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
+make -C "$project_dir/Sources/m1ddc"
+cp "$project_dir/Sources/m1ddc/m1ddc" "$app_dir/Contents/Resources/m1ddc"
+cp "$project_dir/Sources/m1ddc/LICENSE" "$app_dir/Contents/Resources/m1ddc-LICENSE"
+swiftc -O "$project_dir/Sources/ZenRayBright.swift" -o "$app_dir/Contents/MacOS/ZenRayBright"
+cat > "$app_dir/Contents/Info.plist" <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>studio.zenray.bright</string><key>CFBundleName</key><string>ZenRay Bright</string>
+<key>CFBundleExecutable</key><string>ZenRayBright</string><key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleShortVersionString</key><string>1.0</string><key>LSUIElement</key><true/>
+<key>NSHighResolutionCapable</key><true/></dict></plist>
+EOF
+codesign --force --deep --sign - "$app_dir"

@@ -1,0 +1,18 @@
+{
+  "projectId": "zenray-bright",
+  "name": "ZenRay Bright",
+  "entries": [
+    {
+      "id": "revision-1",
+      "createdAt": "2026-11-01T19:43:50.816621+01:00",
+      "sourceDigest": "3095b436e45e052bb6adcc96b9fa6f24709f1dfa616496573e9ee07739fc5e73",
+      "summary": "Contrôle matériel DDC/CI de AW3225QF, panneau natif et commande directe ; fonctionnement confirmé par Matthieu le 1 November 2026."
+    },
+    {
+      "id": "revision-2",
+      "createdAt": "2026-11-01T19:45:50.518164+01:00",
+      "sourceDigest": "8f4dc1f840079e8f49135558c5254bd8fab7e0a4acd6590fffb6d1bc0eca0166",
+      "summary": "Contrôle matériel DDC/CI de AW3225QF, panneau natif et commande directe ; fonctionnement confirmé par Matthieu le 1 November 2026."
+    }
+  ]
+}

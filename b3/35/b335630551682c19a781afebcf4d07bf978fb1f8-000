@@ -1,0 +1,11 @@
+# ZenRay Bright
+
+## 1 November 2026: native AW3225QF brightness control
+
+The menu-bar sun opens a native slider that controls the actual monitor using DDC/CI, without a software overlay. Changes appear immediately, writes are serialized and coalesced over 150 ms, and success is displayed only after matching hardware readback. Helper calls are bounded to three seconds. There is no idle polling. Matthieu confirms that it works perfectly on 1 November 2026.
+
+Build: `bash Scripts/Build.sh`. Install: `python3 Scripts/Install.py`. The app starts at login. `zenray-bright --get`, `zenray-bright --set 40`, and `zenray-bright --step -5` use the same checked hardware path. Settings live in `/Users/zenray/Library/Application Support/ZenRayBright/Config.json`; an existing configuration is preserved. The monitor UUID and debounce interval are editable there.
+
+Regenerate the illustrated document and file map: `python3 Scripts/BuildSummary.py`. `Articles/index.html` is standalone with embedded visuals; `ProjectInfo.json` retains dated entries and `IndexMapping.json` maps sources, installed app, configuration, login item and expected cloud folder. Actual archive receipts remain authoritative in Assets. The article refresh registry tracks the sources and build steps.
+
+The upstream MIT helper is m1ddc at commit `7339ceebb03f691b1eaeb8471dca301d215d19c8`; its source and license are retained in `Sources/m1ddc`. Hardware checks read 40%, write/read 39%, then restore/read 40%. An invalid negative setting exits without changing the monitor. `Proofs/Panel.png` is rendered from the actual AppKit view. The installed app is `/Applications/ZenRay Bright.app`.

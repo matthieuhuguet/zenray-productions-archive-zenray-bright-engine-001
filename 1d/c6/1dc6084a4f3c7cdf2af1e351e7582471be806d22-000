@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+# 1 November 2026, 19:44 Europe/Paris: regenerate the illustrated summary and source mapping.
+import base64
+from datetime import datetime
+import hashlib
+import html
+import json
+from pathlib import Path
+import subprocess
+from zoneinfo import ZoneInfo
+
+root = Path(__file__).resolve().parent.parent
+articles = root / 'Articles'
+articles.mkdir(exist_ok=True)
+info_path = root / 'ProjectInfo.json'
+now = datetime.now(ZoneInfo('Europe/Paris')).isoformat()
+inputs = sorted([root / 'Sources/ZenRayBright.swift', *[p for p in (root / 'Scripts').glob('*') if p.is_file()]])
+digest = hashlib.sha256(b''.join(p.read_bytes() for p in inputs)).hexdigest()
+info = json.loads(info_path.read_text()) if info_path.exists() else {'projectId': 'zenray-bright', 'name': 'ZenRay Bright', 'entries': []}
+if not info['entries'] or info['entries'][-1]['sourceDigest'] != digest:
+    info['entries'].append({'id': 'revision-' + str(len(info['entries']) + 1), 'createdAt': now, 'sourceDigest': digest,
+                            'summary': 'Contrôle matériel DDC/CI de AW3225QF, panneau natif et commande directe ; fonctionnement confirmé par Matthieu le 1 November 2026.'})
+info_path.write_text(json.dumps(info, ensure_ascii=False, indent=2) + '\n')
+entry = info['entries'][-1]
+stamp = datetime.fromisoformat(entry['createdAt']).strftime('%-d %B %Y, %H:%M:%S %z')
+app = root / 'ZenRay Bright.app'
+subprocess.run([str(app / 'Contents/MacOS/ZenRayBright'), '--preview', str(root / 'Proofs/Panel.png')], check=True)
+image = base64.b64encode((root / 'Proofs/Panel.png').read_bytes()).decode()
+files = []
+for file in sorted(root.rglob('*')):
+    relative = file.relative_to(root)
+    if not file.is_file() or any(p in {'.git', '__pycache__', '.DS_Store'} for p in relative.parts):
+        continue
+    if relative.parts[0] == 'Articles' or file.name == 'IndexMapping.json':
+        continue
+    stat = file.stat()
+    role = 'Application prête à lancer' if relative.parts[0].endswith('.app') else 'Moteur DDC et licence' if str(relative).startswith('Sources/m1ddc/') else 'Code, paramètres et preuves'
+    files.append({'fileId': 'engine:' + str(relative), 'path': str(file), 'relativePath': str(relative), 'role': role,
+                  'size': stat.st_size, 'sha256': hashlib.sha256(file.read_bytes()).hexdigest(),
+                  'modifiedAt': datetime.fromtimestamp(stat.st_mtime, ZoneInfo('Europe/Paris')).isoformat()})
+mapping = {'projectId': 'zenray-bright', 'sourceRoot': str(root), 'application': '/Applications/ZenRay Bright.app',
+           'configuration': str(Path.home() / 'Library/Application Support/ZenRayBright/Config.json'),
+           'loginAgent': str(Path.home() / 'Library/LaunchAgents/studio.zenray.bright.plist'),
+           'cli': str(Path.home() / '.local/bin/zenray-bright'), 'articleFileId': 'engine:Articles/index.html',
+           'cloudFolder': 'pages/ZenRayAssets/zenray-bright/sources/tmp/engine',
+           'cloudStatus': 'Consulter les reçus Assets ; ce document ne certifie pas un envoi.', 'files': files}
+(root / 'IndexMapping.json').write_text(json.dumps(mapping, ensure_ascii=False, indent=2) + '\n')
+rows = ''.join(f'<tr><td>{html.escape(f["relativePath"])}</td><td>{f["role"]}</td><td><details><summary>{f["size"]} octets</summary><code>{f["sha256"]}</code><br>{f["modifiedAt"]}</details></td></tr>' for f in files)
+history = ''.join(f'<li><time>{html.escape(e["createdAt"])}</time> : {html.escape(e["summary"])}</li>' for e in info['entries'])
+font_css = ''
+for family, filename, mime in [('GT Ultra', 'GT-Ultra-Standard-Regular.otf', 'font/otf'), ('Literata', 'Literata[opsz,wght].ttf', 'font/ttf')]:
+    path = Path.home() / 'Library/Fonts' / filename
+    if path.exists():
+        encoded = base64.b64encode(path.read_bytes()).decode()
+        font_css += "@font-face{font-family:'" + family + "';font-weight:400;src:url(data:" + mime + ";base64," + encoded + ")}"
+document = f'''<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZenRay Bright</title>
+<style>{font_css}:root{{--bg:#fafaf7;--ink:#202722;--accent:#326b52;--line:#d9dfd8;--width:900px}}*{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Literata,Georgia,serif}}main{{max-width:var(--width);padding:48px 22px;margin:auto}}h1,h2,summary,time,nav{{font-family:'GT Ultra',system-ui,sans-serif;font-weight:400}}h1{{font-size:clamp(38px,7vw,64px);line-height:1.1}}h2{{color:var(--accent);margin-top:40px}}.lead{{font-size:20px}}.panel{{display:block;width:300px;max-width:100%;border-radius:16px;margin:24px auto;box-shadow:0 8px 35px #18382216}}svg{{width:100%;height:auto}}figure{{margin:24px 0}}figcaption{{font-size:14px}}code{{font:12px ui-monospace,monospace;overflow-wrap:anywhere}}details{{border-top:1px solid var(--line);padding:12px 0}}summary{{cursor:pointer}}table{{width:100%;border-collapse:collapse;font-size:13px}}th,td{{text-align:left;padding:10px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}}.table{{overflow:auto}}pre{{white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;background:#edf1eb;border-radius:10px}}a{{color:var(--accent)}}</style><main>
+<p>Contrôle de l’écran externe</p><h1>ZenRay Bright</h1><time datetime="{entry['createdAt']}">{stamp} · Europe/Paris</time>
+<p class="lead">Régler la luminosité de l’AW3225QF depuis la barre des menus du Mac, sans ouvrir le menu du moniteur.</p>
+<p>Le panneau soleil envoie un réglage matériel DDC/CI à cet écran uniquement. Le curseur affiche immédiatement le choix ; un indicateur tourne pendant l’écriture, puis la valeur est relue sur le moniteur avant confirmation. Le fonctionnement est confirmé par Matthieu.</p>
+<figure><img class="panel" alt="Panneau natif ZenRay Bright, AW3225QF réglé à 40 %" src="data:image/png;base64,{image}"><figcaption>Véritable vue native rendue depuis le code de l’application.</figcaption></figure>
+<nav><a href="#use">Utilisation</a> · <a href="#operation">Fonctionnement</a> · <a href="#files">Fichiers</a> · <a href="#history">Historique</a></nav>
+<section id="use"><h2>Utilisation</h2><p>Cliquer sur le soleil dans la barre des menus, puis déplacer le curseur. « Relire » récupère la valeur actuelle du moniteur. Le module démarre à la connexion ; « Quitter » l’arrête.</p><pre>zenray-bright --get\nzenray-bright --set 40\nzenray-bright --step -5</pre><p>Configuration modifiable : <code>{mapping['configuration']}</code>. Elle contient l’identité de l’écran et le délai de regroupement des changements, fixé à 150 ms. Une commande DDC est bornée à 3 secondes.</p></section>
+<section id="operation"><h2>Fonctionnement vérifié</h2><figure><svg viewBox="0 0 720 170" role="img" aria-label="Le curseur natif appelle le moteur DDC qui règle le moniteur"><g fill="#e7eee7"><rect x="10" y="25" width="205" height="90" rx="12"/><rect x="255" y="25" width="205" height="90" rx="12"/><rect x="500" y="25" width="205" height="90" rx="12"/></g><g font-family="system-ui,sans-serif" font-size="20" fill="#202722" text-anchor="middle"><text x="112" y="65">Curseur natif</text><text x="112" y="92">choix immédiat</text><text x="357" y="65">Commande DDC</text><text x="357" y="92">écriture + relecture</text><text x="602" y="65">AW3225QF</text><text x="602" y="92">luminosité réelle</text></g><path d="M220 70H250M465 70H495" stroke="#326b52" stroke-width="3"/><text x="360" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17">Une seule écriture en cours, dernier choix conservé</text></svg></figure><p>Mesure initiale : 40 %. Le réglage à 39 % est relu à 39 %, puis 40 % est rétabli et relu. Le moteur utilisé est m1ddc, version source <code>7339ceebb03f691b1eaeb8471dca301d215d19c8</code>, licence MIT conservée. Aucune boucle de lecture ne tourne au repos ; la mesure prise affiche 0 % CPU.</p><p>Un échec reste visible comme « Non enregistré ». La lecture matérielle peut être refusée si l’écran est déconnecté, DDC/CI coupé ou le mode du moniteur incompatible ; le module ne présente pas un filtre logiciel comme une modification matérielle.</p></section>
+<section id="files"><h2>Dossier autonome et mapping</h2><p>Sources, moteur DDC, application compilée, scripts, preuves et ce document vivent dans <code>{root}</code>. Le registre Assets conserve l’identité, les emplacements cloud et les reçus ; <code>IndexMapping.json</code> est sa carte documentaire complémentaire.</p><details><summary>Afficher les {len(files)} fichiers identifiés</summary><div class="table"><table><tr><th>Fichier</th><th>Rôle</th><th>Preuve</th></tr>{rows}</table></div></details></section>
+<section id="history"><h2>Entrées datées</h2><details><summary>Consulter les révisions</summary><ol>{history}</ol></details><p>Le contenu se reconstruit avec <code>python3 Scripts/BuildSummary.py</code>. Les dates des entrées antérieures sont conservées. Une modification des sources ajoute une révision ; une reconstruction identique ne la duplique pas.</p></section></main></html>'''
+(articles / 'index.html').write_text(document)
+print(json.dumps({'files': len(files), 'entries': len(info['entries']), 'article': str(articles / 'index.html')}))
