@@ -32,9 +32,9 @@
       "path": "/Users/zenray/Create/Build/ZenRayBright/ProjectInfo.json",
       "relativePath": "ProjectInfo.json",
       "role": "Code, paramètres et preuves",
-      "size": 755,
-      "sha256": "54279356934e5cc4ab0b502ae143800a8e932c974fb61c558ef90f46c15fc90a",
-      "modifiedAt": "2026-11-01T19:57:22.617741+01:00"
+      "size": 1450,
+      "sha256": "caa339688e7153d5082526df17eb4e40ed72235dbca1949d18728aa2b79dca45",
+      "modifiedAt": "2026-11-01T20:03:02.810976+01:00"
     },
     {
       "fileId": "engine:Proofs/Article-1440.png",
@@ -61,7 +61,7 @@
       "role": "Code, paramètres et preuves",
       "size": 25294,
       "sha256": "261aca6aef490df54ad8114e491c80e1a1122cacbdca5060445eafb19ddb8272",
-      "modifiedAt": "2026-11-01T19:57:22.716070+01:00"
+      "modifiedAt": "2026-11-01T20:03:02.935577+01:00"
     },
     {
       "fileId": "engine:Proofs/Readback.txt",
@@ -77,9 +77,9 @@
       "path": "/Users/zenray/Create/Build/ZenRayBright/README.md",
       "relativePath": "README.md",
       "role": "Code, paramètres et preuves",
-      "size": 1659,
-      "sha256": "fdd81f2f2b70a507960132df95ff7d8574ceb0026f7154e7293a74e59af97b98",
-      "modifiedAt": "2026-11-01T19:45:50.428021+01:00"
+      "size": 2122,
+      "sha256": "31113009dec13545fdc13b10c345de5e4489278c81f576a04d599685c439cb2f",
+      "modifiedAt": "2026-11-01T20:01:40.804653+01:00"
     },
     {
       "fileId": "engine:Scripts/Build.sh",
@@ -95,9 +95,9 @@
       "path": "/Users/zenray/Create/Build/ZenRayBright/Scripts/BuildSummary.py",
       "relativePath": "Scripts/BuildSummary.py",
       "role": "Code, paramètres et preuves",
-      "size": 9289,
-      "sha256": "472c8f72566835f14e2f93e544dc544dce63d1cde26010e84790533fb8206d9c",
-      "modifiedAt": "2026-11-01T19:45:50.468451+01:00"
+      "size": 9838,
+      "sha256": "069ae8584efdaeb7c0edf12e16c2add14dd2d633b6374f7e61b1c4a83d03fcb2",
+      "modifiedAt": "2026-11-01T20:03:01.661672+01:00"
     },
     {
       "fileId": "engine:Scripts/Install.py",
@@ -107,6 +107,15 @@
       "size": 1246,
       "sha256": "43a17d7c10bb0d8ca00cbd5e0c48bfc92628bf8368e9241268f7e6113aeafc93",
       "modifiedAt": "2026-11-01T19:45:50.427763+01:00"
+    },
+    {
+      "fileId": "engine:Scripts/PublishArticle.mjs",
+      "path": "/Users/zenray/Create/Build/ZenRayBright/Scripts/PublishArticle.mjs",
+      "relativePath": "Scripts/PublishArticle.mjs",
+      "role": "Code, paramètres et preuves",
+      "size": 1144,
+      "sha256": "b73f4af462435401f87a504d88ea141823d594e9a6fa6c416804a77c274d832e",
+      "modifiedAt": "2026-11-01T20:01:40.780244+01:00"
     },
     {
       "fileId": "engine:Sources/ZenRayBright.swift",
@@ -286,7 +295,7 @@
       "role": "Application prête à lancer",
       "size": 542,
       "sha256": "dd58e83f7b71517276bcd9960b0b5acc74841353f73a7d67dda654f6994790eb",
-      "modifiedAt": "2026-11-01T19:57:04.451789+01:00"
+      "modifiedAt": "2026-11-01T20:03:02.754758+01:00"
     },
     {
       "fileId": "engine:ZenRay Bright.app/Contents/MacOS/ZenRayBright",
@@ -295,7 +304,7 @@
       "role": "Application prête à lancer",
       "size": 162368,
       "sha256": "fc740fa60d63649a719a22602fcc46a5357b8a6b3e0ab43d5923e1f246507bd5",
-      "modifiedAt": "2026-11-01T19:57:04.481484+01:00"
+      "modifiedAt": "2026-11-01T20:03:02.762460+01:00"
     },
     {
       "fileId": "engine:ZenRay Bright.app/Contents/Resources/m1ddc",
@@ -304,7 +313,7 @@
       "role": "Application prête à lancer",
       "size": 71096,
       "sha256": "0afffab13a5fd248a8a4d8f15dfadddef7d1c461bcea4334013cfac907b1b639",
-      "modifiedAt": "2026-11-01T19:57:01.544191+01:00"
+      "modifiedAt": "2026-11-01T20:03:01.713383+01:00"
     },
     {
       "fileId": "engine:ZenRay Bright.app/Contents/Resources/m1ddc-LICENSE",
@@ -313,7 +322,7 @@
       "role": "Application prête à lancer",
       "size": 1066,
       "sha256": "b01d3d1de4baa142bb3746588e70814d04eae071d104f8aff580f88e30bb4547",
-      "modifiedAt": "2026-11-01T19:57:01.546937+01:00"
+      "modifiedAt": "2026-11-01T20:03:01.715473+01:00"
     },
     {
       "fileId": "engine:ZenRay Bright.app/Contents/_CodeSignature/CodeResources",
@@ -322,7 +331,7 @@
       "role": "Application prête à lancer",
       "size": 2664,
       "sha256": "c29ae3ca9d2ff95ee82becc417b6bceb6329b336cd81999f17ef68d98d8df584",
-      "modifiedAt": "2026-11-01T19:57:04.475775+01:00"
+      "modifiedAt": "2026-11-01T20:03:02.762057+01:00"
     }
   ]
 }

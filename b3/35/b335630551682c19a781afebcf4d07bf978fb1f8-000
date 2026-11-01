@@ -9,3 +9,8 @@ Build: `bash Scripts/Build.sh`. Install: `python3 Scripts/Install.py`. The app s
 Regenerate the illustrated document and file map: `python3 Scripts/BuildSummary.py`. `Articles/index.html` is standalone with embedded visuals; `ProjectInfo.json` retains dated entries and `IndexMapping.json` maps sources, installed app, configuration, login item and expected cloud folder. Actual archive receipts remain authoritative in Assets. The article refresh registry tracks the sources and build steps.
 
 The upstream MIT helper is m1ddc at commit `7339ceebb03f691b1eaeb8471dca301d215d19c8`; its source and license are retained in `Sources/m1ddc`. Hardware checks read 40%, write/read 39%, then restore/read 40%. An invalid negative setting exits without changing the monitor. `Proofs/Panel.png` is rendered from the actual AppKit view. The installed app is `/Applications/ZenRay Bright.app`.
+
+
+## Article refresh, 1 November 2026
+
+The registered article refresh builds the app, regenerates the illustrated HTML and mapping, updates the article SHA256 using `Scripts/PublishArticle.mjs`, then queues the cloud archive. Run `node /Users/zenray/.claude/skills/zenray-edit/scripts/refresh-articles.mjs --only zenray-bright` after changing the sources. The periodic article service also runs this check. Cloud receipts remain the authority for uploaded bytes.

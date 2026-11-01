@@ -1,0 +1,14 @@
+// 1 November 2026, 20:03 CET: keep the registered article fingerprint aligned with each regenerated HTML file.
+import {readFile} from 'node:fs/promises'
+import {createHash} from 'node:crypto'
+import {fileURLToPath,pathToFileURL} from 'node:url'
+import path from 'node:path'
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..')
+const repository=process.env.ZENRAY_ASSETS_REPO || '/Users/zenray/Create/Build/Productions/GithubProductions/ZenRayProgress'
+const {requestAssets}=await import(pathToFileURL(path.join(repository,'scripts/Assets/BridgeClient.mjs')))
+await requestAssets({action:'inventory',projectId:'zenray-bright'})
+const article={fileId:'engine:Articles/index.html',title:'ZenRay Bright : luminosité AW3225QF',
+ sha256:createHash('sha256').update(await readFile(path.join(root,'Articles/index.html'))).digest('hex'),
+ thumbnailUrl:'data:image/png;base64,'+(await readFile(path.join(root,'Proofs/Panel.png'))).toString('base64')}
+await requestAssets({action:'set-article',projectId:'zenray-bright',article})
+console.log(JSON.stringify({projectId:'zenray-bright',fileId:article.fileId,sha256:article.sha256}))

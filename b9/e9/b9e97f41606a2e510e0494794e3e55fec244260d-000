@@ -13,6 +13,18 @@
       "createdAt": "2026-11-01T19:45:50.518164+01:00",
       "sourceDigest": "8f4dc1f840079e8f49135558c5254bd8fab7e0a4acd6590fffb6d1bc0eca0166",
       "summary": "Contrôle matériel DDC/CI de AW3225QF, panneau natif et commande directe ; fonctionnement confirmé par Matthieu le 1 November 2026."
+    },
+    {
+      "id": "revision-3",
+      "createdAt": "2026-11-01T20:01:42.686976+01:00",
+      "sourceDigest": "248d42af8d61494c6d32001b8942cb3584e3b9ddbef08aaceca38b9cf911820a",
+      "summary": "Contrôle matériel DDC/CI de AW3225QF, panneau natif et commande directe ; fonctionnement confirmé par Matthieu le 1 November 2026."
+    },
+    {
+      "id": "revision-4",
+      "createdAt": "2026-11-01T20:03:02.807584+01:00",
+      "sourceDigest": "1006ee99872f34913c748beedecfaea9c5b4c078f72e66a67abcacb1590f844b",
+      "summary": "Révision des sources et de la configuration : synthèse, inventaire et empreintes reconstruits. Fonctionnement confirmé par Matthieu le 1 November 2026."
     }
   ]
 }
